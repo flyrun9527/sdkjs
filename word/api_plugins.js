@@ -1684,7 +1684,7 @@
 
 
 	 /**
-     * Checks if the document has revision changes.
+     * Checks if the document has revision changes .
      * @memberof Api
      * @typeofeditors ["CDE"]
      * @alias HaveRevisionsChanges
