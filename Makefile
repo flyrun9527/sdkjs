@@ -1,4 +1,4 @@
-GRUNT = grunt
+GRUNT = npx grunt
 GRUNT_FLAGS = --no-color -v 
 
 OUTPUT_DIR = deploy
