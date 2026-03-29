@@ -1617,6 +1617,23 @@
 		return logicDocument.IsEditingOFormMode();
 	};
 
+
+	 /**
+     * Checks if the document has revision changes.
+     * @memberof Api
+     * @typeofeditors ["CDE"]
+     * @alias HaveRevisionsChanges
+     * @param {boolean} [isCheckOwnChanges=false] - If true, checks only for own changes. If false, checks for all changes.
+     * @returns {boolean} - Returns true if the document has revision changes, false otherwise.
+     */
+	 Api.prototype["pluginMethod_HaveRevisionsChanges"] = function(isCheckOwnChanges)
+	{
+		if (undefined === isCheckOwnChanges)
+			isCheckOwnChanges = false;
+	     
+	    return this.asc_HaveRevisionsChanges(isCheckOwnChanges);
+	};
+
 	window["AscCommon"] = window["AscCommon"] || {};
 	window["AscCommon"].readContentControlCommonPr = readContentControlCommonPr;
 	

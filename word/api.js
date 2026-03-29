@@ -7096,6 +7096,9 @@ background-repeat: no-repeat;\
 			return;
 		}
 		this.sendEvent("asc_onHyperlinkClick", Url);
+
+		if (window.g_asc_plugins)
+			window.g_asc_plugins.onPluginEvent("asc_onHyperlinkClick", Url);
 	};
 
 	asc_docs_api.prototype.sync_CanAddHyperlinkCallback = function(bCanAdd)

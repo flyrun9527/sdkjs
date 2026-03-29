@@ -1794,6 +1794,81 @@
 		return true;
 	};
 
+
+    /**
+     * Scrolls the view to the current range position.
+     * @memberof ApiRange
+     * @typeofeditors ["CDE"]
+     * @param {boolean} [isBegin=true] - If true, scrolls to the start of the range; if false, scrolls to the end.
+     * @returns {boolean} - Returns true if scrolling was successful, false otherwise.
+     */
+    ApiRange.prototype.ScrollTo = function(isBegin)
+    {
+        private_RefreshRangesPosition();
+
+        if (this.isEmpty || !this.StartPos || !this.EndPos)
+            return false;
+
+        var Document = this.private_GetLogicDocument();
+        if (!Document || !Document.IsDocumentEditor())
+            return false;
+
+        // 确定要滚动到的位置（开始或结束）
+        var docPos = (isBegin !== false) ? this.StartPos : this.EndPos;
+        
+        // 获取文档位置对应的页面坐标（参考 Document.js 中的 GetXY 函数）
+        function GetXY(docPos)
+        {
+            let run = docPos[docPos.length - 1].Class;
+            if (!run || !(run instanceof AscWord.CRun))
+                return {Page : 0, Y : 0, X : 0, H : 0};
+            
+            let paragraph = run.GetParagraph();
+            if (!paragraph)
+                return {Page : 0, Y : 0, X : 0, H : 0};
+            
+            let state = paragraph.SaveSelectionState();
+            paragraph.RemoveSelection();
+            
+            run.SetThisElementCurrentInParagraph();
+            run.State.ContentPos = docPos[docPos.length - 1].Position;
+            
+            let posInfo = paragraph.RecalculateCurPos(false, false, false, true);
+            paragraph.LoadSelectionState(state);
+            
+            return {
+                Page : posInfo.PageNum,
+                X    : 0,
+                Y    : posInfo.Y,
+                H    : posInfo.Height
+            };
+        }
+        
+        var posInfo = GetXY(docPos);
+        if (!posInfo || posInfo.Page === undefined || posInfo.Y === undefined)
+            return false;
+
+        // 获取 WordControl 并滚动
+        var wordControl = Document.DrawingDocument ? Document.DrawingDocument.m_oWordControl : null;
+        if (!wordControl || typeof wordControl.ScrollToAbsolutePosition !== "function")
+            return false;
+
+        // 滚动到指定位置（isBegin=true 表示顶部对齐，false 表示底部对齐）
+        // 参考 Document.js 中的 CheckViewPosition 方法
+        if (isBegin !== false)
+        {
+            // 滚动到开始位置，顶部对齐
+            wordControl.ScrollToAbsolutePosition(posInfo.X, posInfo.Y, posInfo.Page);
+        }
+        else
+        {
+            // 滚动到结束位置，底部对齐
+            wordControl.ScrollToAbsolutePosition(posInfo.X, posInfo.Y, posInfo.Page, true);
+        }
+
+        return true;
+    };
+
 	/**
 	 * Returns a new range that goes beyond the specified range in any direction and spans a different range. The current range has not changed.
 	 * @memberof ApiRange
