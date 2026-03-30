@@ -10040,6 +10040,8 @@ background-repeat: no-repeat;\
 	asc_docs_api.prototype.sync_OnTrackRevisionsChange         = function(localFlag, globalFlag, userId)
 	{
 		this.sendEvent("asc_onOnTrackRevisionsChange", localFlag, globalFlag, userId);
+		// 发送事件给连接器监听
+        this.sendEvent("onTrackRevisionsChange", localFlag, globalFlag, userId);
 	};
 	asc_docs_api.prototype.sync_BeginCatchRevisionsChanges     = function()
 	{

@@ -29615,6 +29615,7 @@
 	ApiRange.prototype["GetText"]                    = ApiRange.prototype.GetText;
 	ApiRange.prototype["GetAllParagraphs"]           = ApiRange.prototype.GetAllParagraphs;
 	ApiRange.prototype["Select"]                     = ApiRange.prototype.Select;
+	ApiRange.prototype["ScrollTo"]                   = ApiRange.prototype.ScrollTo;
 	ApiRange.prototype["ExpandTo"]                   = ApiRange.prototype.ExpandTo;
 	ApiRange.prototype["IntersectWith"]              = ApiRange.prototype.IntersectWith;
 	ApiRange.prototype["SetBold"]                    = ApiRange.prototype.SetBold;
