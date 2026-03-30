@@ -1810,7 +1810,7 @@
             return false;
 
         var Document = this.private_GetLogicDocument();
-        if (!Document || !Document.IsDocumentEditor())
+        if (!Document)
             return false;
 
         // 确定要滚动到的位置（开始或结束）
@@ -4611,6 +4611,22 @@
 	{
 		return new ApiDocument(private_GetLogicDocument());
 	};
+	/**
+     * Checks if the document has revision changes.
+     * @memberof Api
+     * @typeofeditors ["CDE"]
+     * @param {boolean} [isCheckOwnChanges=false] - If true, checks only for own changes. If false, checks for all changes.
+     * @returns {boolean} - Returns true if the document has revision changes, false otherwise.
+     * @see office-js-api/Examples/{Editor}/Api/Methods/HaveRevisionsChanges.js
+     */
+    Api.prototype.HaveRevisionsChanges = function(isCheckOwnChanges)
+    {
+        if (undefined === isCheckOwnChanges)
+            isCheckOwnChanges = false;
+        
+        return this.asc_HaveRevisionsChanges(isCheckOwnChanges);
+    };
+
 	/**
 	 * Returns the object by it's internal ID.
 	 * @memberof Api
