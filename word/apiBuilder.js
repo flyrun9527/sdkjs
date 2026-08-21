@@ -32415,6 +32415,11 @@
 		{
 			Asc.editor.sendEvent.apply(Asc.editor, arguments);
 		};
+
+		Api.Print = Api["Print"] = function(options)
+		{
+			return Asc.editor.asc_Print(options);
+		};
 		
 		Api.AI = Api["AI"] = function()
 		{

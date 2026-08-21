@@ -8843,6 +8843,11 @@
 		AscBuilder.ApiGroup     = ApiGroup;
 		AscBuilder.ApiSmartArt  = ApiSmartArt;
 		AscBuilder.ApiChart     = ApiChart;
+
+		Api.Print = Api["Print"] = function(options)
+		{
+			return Asc.editor.asc_Print(options);
+		};
 	};
 
 }(window, null));

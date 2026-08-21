@@ -186,6 +186,24 @@
 	 */
     Api.prototype["pluginMethod_GetVersion"] = function() { return this.GetVersion(); };
 
+	/**
+	 * Starts document printing from connector plugins.
+	 * @memberof Api
+	 * @typeofeditors ["CDE", "CSE", "CPE"]
+	 * @alias Print
+	 * @param {Asc.asc_CDownloadOptions} [options] - Printing options.
+	 */
+	Api.prototype["pluginMethod_Print"] = function(options)
+	{
+		let guid = window.g_asc_plugins ? window.g_asc_plugins.getCurrentPluginGuid() : "";
+		let runObject = (window.g_asc_plugins && guid) ? window.g_asc_plugins.runnedPluginsMap[guid] : null;
+		if (!runObject || !runObject.isConnector)
+			return false;
+
+		this.asc_Print(options);
+		return true;
+	};
+
     /**
      * Adds an OLE object to the current document position.
      * @memberof Api
